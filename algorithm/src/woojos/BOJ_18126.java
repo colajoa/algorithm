@@ -3,7 +3,7 @@ package woojos;
 import java.io.*;
 import java.util.*;
 
-public class Baekjoon_18126 {
+public class BOJ_18126 {
 
     static int N, ans;
     static boolean[] visited;
