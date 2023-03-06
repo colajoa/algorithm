@@ -1,4 +1,4 @@
-package woojos;
+package BOJ_silver;
 
 import java.io.*;
 import java.util.*;
