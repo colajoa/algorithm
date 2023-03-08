@@ -6,6 +6,7 @@ import java.util.*;;
 public class BOJ_15558 {
     static int N, k;
     static int[][] map;
+    static boolean[][] visited;
     static int dc[] = { 1, -1, k };
 
     static class Point {
@@ -20,37 +21,31 @@ public class BOJ_15558 {
 
     static void bfs() {
         Queue<Point> q = new ArrayDeque<>();
-        q.add(new Point(0, 0));
+        q.add(new Point(0, 0, 0));
 
-        map[0][0] = map[1][0] = -1;
-        int idx = 1;
+        visited[0][0] = true;
+
         while (!q.isEmpty()) {
             Point now = q.poll();
 
-            // if (now.c == N - 1) {
-            // System.out.println(1);
-            // return;
-            // }
             for (int i = 0; i < 3; i++) {
                 int nr = now.r;
                 int nc = now.c + dc[i];
-
+                int time = now.time;
                 if (i == 2) {
                     nr = now.r == 0 ? 1 : 0;
-                }
-
-                if (nc >= 0 && nc < N && map[nr][nc] == 1) {
-                    q.add(new Point(nr, nc));
                 }
 
                 if (nc >= N) {
                     System.out.println(1);
                     return;
                 }
+                if (nc > time && !visited[nr][nc] && map[nr][nc] != 0) {
+                    q.add(new Point(nr, nc, time + 1));
+                    visited[nr][nc] = true;
+                }
             }
 
-            map[0][idx] = map[1][idx] = -1;
-            idx++;
         }
 
         System.out.println(0);
@@ -67,6 +62,8 @@ public class BOJ_15558 {
         k = Integer.parseInt(token.nextToken());
 
         map = new int[2][N];
+        visited = new boolean[2][N];
+
         for (int r = 0; r < 2; r++) {
             String str = br.readLine();
 
