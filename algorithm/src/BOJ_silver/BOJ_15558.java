@@ -7,7 +7,7 @@ public class BOJ_15558 {
     static int N, k;
     static int[][] map;
     static boolean[][] visited;
-    static int dc[] = { 1, -1, k };
+    static int dc[] = { -1, 1, 0 };
 
     static class Point {
         int r, c, time;
@@ -34,12 +34,14 @@ public class BOJ_15558 {
                 int time = now.time;
                 if (i == 2) {
                     nr = now.r == 0 ? 1 : 0;
+                    nc += k;
                 }
 
                 if (nc >= N) {
                     System.out.println(1);
                     return;
                 }
+
                 if (nc > time && !visited[nr][nc] && map[nr][nc] != 0) {
                     q.add(new Point(nr, nc, time + 1));
                     visited[nr][nc] = true;
@@ -47,7 +49,6 @@ public class BOJ_15558 {
             }
 
         }
-
         System.out.println(0);
         return;
     }
@@ -71,7 +72,7 @@ public class BOJ_15558 {
                 map[r][c] = str.charAt(c) - '0';
             }
         }
-
         bfs();
     }
+
 }
