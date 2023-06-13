@@ -4,32 +4,34 @@ import java.io.*;
 import java.util.*;
 
 public class _8단변속기 {
-    static char[][] arr = {
-            { '1', '2', '3', '4', '5', '6', '7', '8' },
-            { '8', '7', '6', '5', '4', '3', '2', '1' }
-    };
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer token = null;
 
-        token = new StringTokenizer(br.readLine(), " ");
+        StringTokenizer token = new StringTokenizer(br.readLine());
 
-        char[] ch = new char[8];
+        int[] gear = new int[8];
         for (int i = 0; i < 8; i++) {
-            ch[i] = token.nextToken().charAt(0);
+            gear[i] = Integer.parseInt(token.nextToken());
         }
-
-        System.out.println(ch.equals(arr[0]));
-        System.out.println(ch.equals(arr[1]));
-
-        if (ch.equals(arr[0])) {
-            System.out.println("ascending");
-        } else if (ch.equals(arr[1])) {
-            System.out.println("descending");
-        } else {
-            System.out.println("mixed");
+        String str = "";
+        if (gear[0] == 1) {
+            str = "ascending";
+            for (int i = 1; i < 8; i++) {
+                if (gear[i - 1] > gear[i]) {
+                    str = "mixed";
+                    break;
+                }
+            }
+        } else if (gear[0] == 8) {
+            str = "descending";
+            for (int i = 1; i < 8; i++) {
+                if (gear[i - 1] < gear[i]) {
+                    str = "mixed";
+                    break;
+                }
+            }
         }
-
+        System.out.println(str);
     }
 }
