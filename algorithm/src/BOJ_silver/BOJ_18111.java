@@ -4,56 +4,48 @@ import java.io.*;
 import java.util.*;
 
 public class BOJ_18111 {
-    static int N, M, B;
-    static int[][] ground;
-    static int ansTime = Integer.MAX_VALUE, ansHeight = -1;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer token = new StringTokenizer(br.readLine());
 
-        N = Integer.parseInt(token.nextToken());
-        M = Integer.parseInt(token.nextToken());
-        B = Integer.parseInt(token.nextToken());
+        int N = Integer.parseInt(token.nextToken());
+        int M = Integer.parseInt(token.nextToken());
+        int B = Integer.parseInt(token.nextToken());
+        int ansTime = Integer.MAX_VALUE;
+        int ansHeight = -1;
 
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-
-        ground = new int[N][M];
+        int[][] ground = new int[N][M];
 
         for (int n = 0; n < N; n++) {
             token = new StringTokenizer(br.readLine());
             for (int m = 0; m < M; m++) {
                 int num = ground[n][m] = Integer.parseInt(token.nextToken());
-
-                max = Math.max(max, num);
-                min = Math.min(min, num);
             }
         }
 
-        for (int i = min; i <= max; i++) {
+        for (int i = 0; i <= 256; i++) {
 
-            int invent = B;
-            int time = 0;
+            int invent = 0;
+            int remove = 0;
 
             for (int n = 0; n < N; n++) {
                 for (int m = 0; m < M; m++) {
                     int gap = ground[n][m] - i;
 
-                    if (gap > 0) {
-                        time += gap * 2;
-                        invent += gap;
-                    } else if (gap < 0) {
-                        time += (gap * -1);
-                        invent -= (gap * -1);
+                    if (gap < 0) {
+                        invent -= gap;
+                    } else {
+                        remove += gap;
                     }
                 }
             }
 
-            if (invent >= 0) {
+            if (remove + B >= invent) {
                 // 같은 시간이면 땅이 가장 높은 것을 출력
-                if (ansTime >= time) {
-                    ansTime = time;
+                int t = 2 * remove + invent;
+                if (ansTime >= t) {
+                    ansTime = t;
                     ansHeight = i;
                 }
             }
