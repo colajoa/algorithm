@@ -20,6 +20,6 @@ public class BOJ_2501 {
             if (cnt == K)
                 break;
         }
-        System.out.println(i >= K ? 0 : i);
+        System.out.println(cnt < K ? 0 : i);
     }
 }
