@@ -1,7 +1,6 @@
 package BOJ_bronze;
 
 import java.io.*;
-import java.util.*;
 
 public class BOJ_2587 {
     public static void main(String[] args) throws Exception {
@@ -15,7 +14,16 @@ public class BOJ_2587 {
             sum += nums[i];
         }
 
-        Arrays.sort(nums);
+        for (int i = 4; i > 0; i--) {
+            int max = nums[i];
+            for (int j = 0; j < i; j++) {
+                if (nums[j] > max) {
+                    nums[i] = nums[j];
+                    nums[j] = max;
+                    max = nums[i];
+                }
+            }
+        }
 
         System.out.println(sum / 5);
         System.out.println(nums[2]);
