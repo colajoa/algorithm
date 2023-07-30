@@ -4,10 +4,6 @@ import java.io.*;
 import java.util.*;
 
 public class BOJ_1107 {
-    static void changeChannel() {
-
-    }
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer token = null;
@@ -17,15 +13,16 @@ public class BOJ_1107 {
         int M = Integer.parseInt(br.readLine());
         boolean[] nums = new boolean[10];
 
-        token = new StringTokenizer(br.readLine());
+        if (M != 0) {
+            token = new StringTokenizer(br.readLine());
+        }
+
         for (int m = 0; m < M; m++) {
             nums[Integer.parseInt(token.nextToken())] = true;
         }
 
         if (num == 100) {
             System.out.println(0);
-        } else if (M == 0) {
-            System.out.println(N.length());
         } else if (M == 10) {
             System.out.println(Math.abs(100 - num));
         } else {
@@ -41,12 +38,11 @@ public class BOJ_1107 {
                         break;
                     }
                 }
-                if (!flag)
-                    continue;
 
-                int cnt = str.length() + Math.abs(i - num);
-                if (cnt < min)
-                    min = cnt;
+                if (flag) {
+                    int cnt = str.length() + Math.abs(i - num);
+                    min = Math.min(min, cnt);
+                }
             }
             System.out.println(min);
         }
