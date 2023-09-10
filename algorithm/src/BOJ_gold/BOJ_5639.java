@@ -4,43 +4,44 @@ import java.io.*;
 
 public class BOJ_5639 {
     static StringBuilder sb = new StringBuilder();
-    static Node[] tree;
 
     static class Node {
-        int left, right;
+        int data;
+        Node left, right;
 
         public Node() {
         }
 
-        public Node(int left, int right) {
+        public Node(int data, Node left, Node right) {
+            this.data = data;
             this.left = left;
             this.right = right;
         }
     }
 
-    static void setTree(int num, int root) {
+    static void setTree(int num, Node node) {
 
-        if (root > num) {
-            if (tree[root].left == -1) {
-                tree[root].left = num;
+        if (node.data > num) {
+            if (node.left == null) {
+                node.left = new Node(num, null, null);
                 return;
             }
-            setTree(num, tree[root].left);
+            setTree(num, node.left);
         } else {
-            if (tree[root].right == -1) {
-                tree[root].right = num;
+            if (node.right == null) {
+                node.right = new Node(num, null, null);
                 return;
             }
-            setTree(num, tree[root].right);
+            setTree(num, node.right);
         }
 
     }
 
-    static void postorder(int node) {
-        if (node != -1) {
-            postorder(tree[node].left);
-            postorder(tree[node].right);
-            sb.append(node).append("\n");
+    static void postorder(Node node) {
+        if (node != null) {
+            postorder(node.left);
+            postorder(node.right);
+            sb.append(node.data).append("\n");
         }
     }
 
@@ -48,22 +49,20 @@ public class BOJ_5639 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String str = "";
-        tree = new Node[1000001];
 
         int num = 0;
         int root = Integer.parseInt(br.readLine());
-        tree[root] = new Node(-1, -1);
+        Node node = new Node(root, null, null);
 
         while (true) {
             str = br.readLine();
             if (str == null || str.equals(""))
                 break;
             num = Integer.parseInt(str);
-            tree[num] = new Node(-1, -1);
-            setTree(num, root);
+            setTree(num, node);
         }
 
-        postorder(root);
+        postorder(node);
         System.out.println(sb);
     }
 }
