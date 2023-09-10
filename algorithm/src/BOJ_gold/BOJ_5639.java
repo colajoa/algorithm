@@ -17,24 +17,24 @@ public class BOJ_5639 {
             this.left = left;
             this.right = right;
         }
-    }
 
-    static void setTree(int num, Node node) {
+        void setTree(int num) {
 
-        if (node.data > num) {
-            if (node.left == null) {
-                node.left = new Node(num, null, null);
-                return;
+            if (this.data > num) {
+                if (this.left == null) {
+                    this.left = new Node(num, null, null);
+                    return;
+                }
+                this.left.setTree(num);
+            } else {
+                if (this.right == null) {
+                    this.right = new Node(num, null, null);
+                    return;
+                }
+                this.right.setTree(num);
             }
-            setTree(num, node.left);
-        } else {
-            if (node.right == null) {
-                node.right = new Node(num, null, null);
-                return;
-            }
-            setTree(num, node.right);
+
         }
-
     }
 
     static void postorder(Node node) {
@@ -59,7 +59,7 @@ public class BOJ_5639 {
             if (str == null || str.equals(""))
                 break;
             num = Integer.parseInt(str);
-            setTree(num, node);
+            node.setTree(num);
         }
 
         postorder(node);
