@@ -32,10 +32,6 @@ public class BOJ_6593 {
         while (!q.isEmpty()) {
             Point now = q.poll();
 
-            if (map[now.l][now.r][now.c] == 'E') {
-                return "Escaped in " + now.cnt + " minute(s).";
-            }
-
             for (int d = 0; d < 6; d++) {
                 int nl = now.l + dl[d];
                 int nr = now.r + dr[d];
@@ -45,6 +41,9 @@ public class BOJ_6593 {
                         && map[nl][nr][nc] != '#') {
                     visited[nl][nr][nc] = true;
                     q.add(new Point(nl, nr, nc, now.cnt + 1));
+                    if (map[nl][nr][nc] == 'E') {
+                        return "Escaped in " + (now.cnt + 1) + " minute(s).";
+                    }
                 }
             }
         }
