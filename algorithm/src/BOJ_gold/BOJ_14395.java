@@ -3,6 +3,7 @@ package BOJ_gold;
 import java.io.*;
 import java.util.*;
 
+// visited boolean[] -> Set
 public class BOJ_14395 {
     static long S, T;
     static String ans;
