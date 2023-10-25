@@ -6,7 +6,7 @@ import java.util.*;
 public class BOJ_14395 {
     static long S, T;
     static String ans;
-    static boolean[] visited = new boolean[1000000001];
+    static Set<Long> set = new HashSet<>();
     static Queue<Calc> q = new ArrayDeque<>();
 
     static class Calc {
@@ -20,7 +20,7 @@ public class BOJ_14395 {
     }
 
     static boolean bfs() {
-        visited[(int) S] = true;
+        set.add(S);
         q.add(new Calc(S, ""));
 
         while (!q.isEmpty()) {
@@ -53,8 +53,8 @@ public class BOJ_14395 {
                         }
                         break;
                 }
-                if (next >= 0 && next <= 1000000000 && !visited[(int) next]) {
-                    visited[(int) next] = true;
+                if (!set.contains(next)) {
+                    set.add(next);
                     q.add(new Calc(next, nextCalc));
                 }
             }
