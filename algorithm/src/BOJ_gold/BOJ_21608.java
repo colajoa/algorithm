@@ -69,8 +69,8 @@ public class BOJ_21608 {
                                 }
                             }
                         }
-                        list.add(friends);
-                        // pq.add(friends);
+                        // list.add(friends);
+                        pq.add(friends);
                     }
                 }
             }
@@ -81,19 +81,20 @@ public class BOJ_21608 {
             // }
             // System.out.println();
 
-            Collections.sort(list);
+            // Collections.sort(list);
             // System.out.println("student : " + student);
             // for (Point p : list) {
-            //     System.out.println("R : " + p.r + " C : " + p.c + " Like : " + p.like + " Blank : " + p.blank);
+            // System.out.println("R : " + p.r + " C : " + p.c + " Like : " + p.like + "
+            // Blank : " + p.blank);
             // }
             // System.out.println();
 
-            // Point point = pq.poll();
-            Point point = list.get(0);
+            Point point = pq.poll();
+            // Point point = list.get(0);
             map[point.r][point.c] = student;
             // print();
-            // pq.clear();
-            list.clear();
+            pq.clear();
+            // list.clear();
         }
 
         long sum = 0;
