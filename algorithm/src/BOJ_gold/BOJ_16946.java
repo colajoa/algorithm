@@ -75,16 +75,19 @@ public class BOJ_16946 {
         for (int r = 0; r < R; r++) {
             for (int c = 0; c < C; c++) {
                 if (map[r][c] == 0) {
-                    boolean[] selected = new boolean[num];
+                    Set<Integer> set = new HashSet<>();
                     ans[r][c] = 1;
                     for (int d = 0; d < 4; d++) {
                         int nr = r + dr[d];
                         int nc = c + dc[d];
 
-                        if (nr >= 0 && nr < R && nc >= 0 && nc < C && !selected[map[nr][nc]] && map[nr][nc] != 0) {
-                            selected[map[nr][nc]] = true;
-                            ans[r][c] += list.get(map[nr][nc] - 1);
+                        if (nr >= 0 && nr < R && nc >= 0 && nc < C && map[nr][nc] != 0) {
+                            set.add(map[nr][nc] - 1);
                         }
+                    }
+
+                    for (int n : set) {
+                        ans[r][c] += list.get(n);
                     }
                 }
             }
