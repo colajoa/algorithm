@@ -66,7 +66,7 @@ public class BOJ_16946 {
                     map[r][c] = num;
                     q.add(new Point(r, c));
                     bfs();
-                    list.add(cnt);
+                    list.add(cnt % 10);
                     num += 1;
                 }
             }
@@ -83,7 +83,7 @@ public class BOJ_16946 {
 
                         if (nr >= 0 && nr < R && nc >= 0 && nc < C && !selected[map[nr][nc]] && map[nr][nc] != 0) {
                             selected[map[nr][nc]] = true;
-                            ans[r][c] += list.get(map[nr][nc] - 1) % 10;
+                            ans[r][c] += list.get(map[nr][nc] - 1);
                         }
                     }
                 }
