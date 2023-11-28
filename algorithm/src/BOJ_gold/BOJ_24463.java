@@ -9,10 +9,18 @@ public class BOJ_24463 {
     static char[][] map;
     static int[] dr = { -1, 0, 1, 0 };
     static int[] dc = { 0, 1, 0, -1 };
+    static StringBuilder sb = new StringBuilder();
 
-    static boolean dfs(int r, int c) {
+    static void dfs(int r, int c) {
         if (r == p[1][0] && c == p[1][1]) {
-            return true;
+            map[p[0][0]][p[0][1]] = '.';
+            for (int rr = 0; rr < N; rr++) {
+                for (int cc = 0; cc < M; cc++) {
+                    sb.append(map[rr][cc]);
+                }
+                sb.append("\n");
+            }
+            return;
         }
 
         for (int d = 0; d < 4; d++) {
@@ -21,19 +29,15 @@ public class BOJ_24463 {
 
             if (nr >= 0 && nr < N && nc >= 0 && nc < M && map[nr][nc] == '@') {
                 map[nr][nc] = '.';
-                if (dfs(nr, nc)) {
-                    return true;
-                }
+                dfs(nr, nc);
                 map[nr][nc] = '@';
             }
         }
-        return false;
     }
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer token = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
 
         N = Integer.parseInt(token.nextToken());
         M = Integer.parseInt(token.nextToken());
@@ -57,14 +61,6 @@ public class BOJ_24463 {
         }
 
         dfs(p[0][0], p[0][1]);
-
-        map[p[0][0]][p[0][1]] = '.';
-        for (int r = 0; r < N; r++) {
-            for (int c = 0; c < M; c++) {
-                sb.append(map[r][c]);
-            }
-            sb.append("\n");
-        }
 
         System.out.println(sb);
     }
