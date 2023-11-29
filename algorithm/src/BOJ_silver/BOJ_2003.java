@@ -18,9 +18,7 @@ public class BOJ_2003 {
             nums[n] = Integer.parseInt(token.nextToken());
         }
 
-        sum[1] = nums[1];
-
-        for (int n = 2; n < N + 1; n++) {
+        for (int n = 1; n < N + 1; n++) {
             sum[n] = sum[n - 1] + nums[n];
         }
 
