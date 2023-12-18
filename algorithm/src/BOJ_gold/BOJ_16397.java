@@ -6,7 +6,7 @@ import java.util.*;
 public class BOJ_16397 {
     static int N, T, G, ans;
     static Queue<Button> q = new ArrayDeque<>();
-    static boolean[][] visited = new boolean[100000][2];
+    static boolean[] visited = new boolean[100000];
 
     static class Button {
         int num, cnt;
@@ -33,8 +33,8 @@ public class BOJ_16397 {
 
                     if (next > 99999)
                         continue;
-                    if (!visited[next][0]) {
-                        visited[next][0] = true;
+                    if (!visited[next]) {
+                        visited[next] = true;
                         q.add(new Button(next, now.cnt + 1));
                     }
                 } else if (i == 1) {
@@ -51,8 +51,8 @@ public class BOJ_16397 {
 
                     next -= minus;
 
-                    if (!visited[next][1]) {
-                        visited[next][1] = true;
+                    if (!visited[next]) {
+                        visited[next] = true;
                         q.add(new Button(next, now.cnt + 1));
                     }
                 }
@@ -72,8 +72,7 @@ public class BOJ_16397 {
         G = Integer.parseInt(token.nextToken());
 
         ans = T + 1;
-        visited[N][0] = true;
-        visited[N][1] = true;
+        visited[N] = true;
         q.add(new Button(N, 0));
 
         if (bfs()) {
