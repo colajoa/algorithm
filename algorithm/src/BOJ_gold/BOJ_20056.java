@@ -7,8 +7,8 @@ public class BOJ_20056 {
     static int N, M, K;
     static int[] dr = { -1, -1, 0, 1, 1, 1, 0, -1 };
     static int[] dc = { 0, 1, 1, 1, 0, -1, -1, -1 };
-    static Queue<FireBall>[][] map;
-    static Queue<FireBall> fireBalls = new ArrayDeque<>();
+    static List<FireBall>[][] map;
+    static List<FireBall> fireBalls = new ArrayList<>();
 
     static class FireBall {
         int r, c, m, s, d;
@@ -33,52 +33,46 @@ public class BOJ_20056 {
     }
 
     static void merge() {
-        boolean[][] visited = new boolean[N][N];
-
-        int len = fireBalls.size();
-        for (int l = 0; l < len; l++) {
-            FireBall now = fireBalls.poll();
-            if (visited[now.r][now.c])
-                continue;
-
-            visited[now.r][now.c] = true;
-            if (map[now.r][now.c].size() == 1) {
-                fireBalls.add(now);
-            }
-
-            else if (map[now.r][now.c].size() > 1) {
-                int size = map[now.r][now.c].size();
-                int mass = 0, speed = 0, even = 0, odd = 0;
-
-                for (int i = 0; i < size; i++) {
-                    FireBall fireBall = map[now.r][now.c].poll();
-
-                    mass += fireBall.m;
-                    speed += fireBall.s;
-
-                    if (fireBall.d % 2 == 0) {
-                        even += 1;
-                    } else {
-                        odd += 1;
-                    }
-                }
-                mass /= 5;
-                speed /= size;
-
-                if (mass == 0) {
+        for (int r = 0; r < N; r++) {
+            for (int c = 0; c < N; c++) {
+                if (map[r][c].size() == 1) {
+                    map[r][c].clear();
                     continue;
-                }
-                if (even == size || odd == size) {
-                    for (int i = 0; i < 8; i += 2) {
-                        fireBalls.add(new FireBall(now.r, now.c, mass, speed, i));
+                } else if (map[r][c].size() > 1) {
+                    int size = map[r][c].size();
+                    int mass = 0, speed = 0, even = 0, odd = 0;
+
+                    for (FireBall fireBall : map[r][c]) {
+
+                        mass += fireBall.m;
+                        speed += fireBall.s;
+
+                        if (fireBall.d % 2 == 0) {
+                            even += 1;
+                        } else {
+                            odd += 1;
+                        }
+                        fireBalls.remove(fireBall);
                     }
-                } else {
-                    for (int i = 1; i < 8; i += 2) {
-                        fireBalls.add(new FireBall(now.r, now.c, mass, speed, i));
+                    mass /= 5;
+                    speed /= size;
+                    map[r][c].clear();
+
+                    if (mass == 0) {
+                        continue;
+                    }
+                    if (even == size || odd == size) {
+                        for (int i = 0; i < 8; i += 2) {
+                            fireBalls.add(new FireBall(r, c, mass, speed, i));
+                        }
+                    } else {
+                        for (int i = 1; i < 8; i += 2) {
+                            fireBalls.add(new FireBall(r, c, mass, speed, i));
+                        }
                     }
                 }
+
             }
-            map[now.r][now.c].clear();
         }
     }
 
@@ -90,11 +84,11 @@ public class BOJ_20056 {
         M = Integer.parseInt(token.nextToken());
         K = Integer.parseInt(token.nextToken());
 
-        map = new ArrayDeque[N][N];
+        map = new ArrayList[N][N];
 
         for (int r = 0; r < N; r++) {
             for (int c = 0; c < N; c++) {
-                map[r][c] = new ArrayDeque<>();
+                map[r][c] = new ArrayList<>();
             }
         }
         for (int m = 0; m < M; m++) {
