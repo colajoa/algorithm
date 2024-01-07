@@ -25,13 +25,7 @@ public class BOJ_1475 {
             max = Math.max(max, nums[i]);
         }
 
-        int sixNine = nums[6] + nums[9];
-
-        if (sixNine % 2 == 0) {
-            sixNine /= 2;
-        } else {
-            sixNine = (sixNine / 2) + 1;
-        }
+        int sixNine = (int) Math.ceil((double) (nums[6] + nums[9]) / 2);
 
         System.out.println(Math.max(sixNine, max));
     }
