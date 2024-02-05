@@ -41,10 +41,6 @@ public class BOJ_16920 {
                             }
                         }
                     }
-
-                    if (players[p].isEmpty()) {
-                        break;
-                    }
                 }
             }
             boolean flag = true;
